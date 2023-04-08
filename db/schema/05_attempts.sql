@@ -5,5 +5,5 @@ CREATE TABLE attempts (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   quiz_id INTEGER REFERENCES quizzes(id) ON DELETE CASCADE,
   score INTEGER NOT NULL,
-  max_score INTEGER NOT NULL,
+  max_score INTEGER NOT NULL
 );
