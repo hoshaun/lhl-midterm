@@ -11,9 +11,9 @@ const getUsers = function() {
 };
 
 // get specific user
-const getUser = function(id) {
-  const params = [id];
-  const query = `SELECT * FROM users WHERE id = $1;`;
+const getUser = function(username) {
+  const params = [username];
+  const query = `SELECT * FROM users WHERE username = $1;`;
 
   return db.query(query, params)
     .then(data => {
@@ -36,12 +36,12 @@ const createUser = function(username, password) {
 };
 
 // update an existing user
-const updateUsername = function(id, username) {
-  const params = [id, username];
+const updateUsername = function(oldUsername, newUsername) {
+  const params = [oldUsername, newUsername];
   const query = `
     UPDATE users
     SET username = $2,
-    WHERE id = $1;
+    WHERE username = $1;
   `;
   
   return db.query(query, params)
@@ -51,12 +51,12 @@ const updateUsername = function(id, username) {
 };
 
 // update an existing user
-const updatePassword = function(id, password) {
-  const params = [id, password];
+const updatePassword = function(username, password) {
+  const params = [username, password];
   const query = `
     UPDATE users
     SET password = $2,
-    WHERE id = $1;
+    WHERE username = $1;
   `;
   
   return db.query(query, params)
@@ -66,9 +66,9 @@ const updatePassword = function(id, password) {
 };
 
 // delete specific user
-const deleteUser = function(id) {
-  const params = [id];
-  const query = `DELETE FROM users WHERE id = $1;`;
+const deleteUser = function(username) {
+  const params = [username];
+  const query = `DELETE FROM users WHERE username = $1;`;
   
   return db.query(query, params)
     .then(data => {
@@ -76,11 +76,23 @@ const deleteUser = function(id) {
     });
 };
 
+// check if username already exists in DB
+const userExists = function(username) {
+  const params = [username];
+  const query = `SELECT * FROM users WHERE username = $1;`;
+
+  return db.query(query, params)
+    .then(data => {
+      return data.rows.length > 0;
+    });
+}
+
 module.exports = { 
   getUsers, 
   getUser, 
   createUser, 
   updateUsername,
   updatePassword,
-  deleteUser
+  deleteUser,
+  userExists
 };
