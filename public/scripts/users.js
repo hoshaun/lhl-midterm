@@ -1,5 +1,5 @@
 // Client facing scripts here
-$(() => {
+$(document).ready(function() {
   $('#fetch-users').on('click', () => {
     $.ajax({
       method: 'GET',
@@ -10,7 +10,7 @@ $(() => {
       $usersList.empty();
 
       for(const user of response.users) {
-        $(`<li class="user">`).text(user.name).appendTo($usersList);
+        $(`<li class="user">`).text(user.username).appendTo($usersList);
       }
     });
   });
