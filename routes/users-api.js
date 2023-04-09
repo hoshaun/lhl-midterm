@@ -8,6 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/users');
+const bcrypt = require('bcryptjs');
 
 // get all users
 router.get('/', (req, res) => {
@@ -36,7 +37,14 @@ router.get('/:id', (req, res) => {
 });
 
 // create a new user
-router.post('/create', (req, res) => {
+router.get('/create', (req, res) => {
+  const username = req.body.username;
+  const password = bcrypt.hashSync(req.body.password, 10);
+
+  if (!(username && password)) {
+    return res.status(400).send('Status: Bad Request\n');
+  }
+
   userQueries.createUser(username, password)
     .then(users => {
       res.json({ users });
