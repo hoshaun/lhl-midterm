@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const quizQueries = require('../db/queries/quizzes');
+const questionQueries = require('../db/queries/questions');
 
 router.get('/:url', (req, res) => {
   const username = req.session.username;
@@ -12,14 +13,25 @@ router.get('/:url', (req, res) => {
 
   quizQueries.getQuiz(url)
     .then(quiz => {
-      const templateVars = {
-        username: username,
-        creatorName: quiz[0].creator_id,
-        quizTitle: quiz[0].title,
-        quizDescription: quiz[0].description
-      };
-    
-      res.render("../views/quiz", templateVars);
+      questionQueries.getQuestions(quiz[0].id)
+      .then(questions => {
+        const templateVars = {
+          username: username,
+          quiz: {
+            creator: quiz[0].creator_id,
+            title: quiz[0].title,
+            description: quiz[0].description
+          },
+          questions: questions
+        };
+      
+        res.render("../views/quiz", templateVars);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
     })
     .catch(err => {
       res
