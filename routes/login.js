@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/users');
 
+// render login page
 router.get('/', (req, res) => {
   const username = req.session.username;
 
@@ -12,6 +13,7 @@ router.get('/', (req, res) => {
   res.render('login');
 });
 
+// login as existing user
 router.post('/', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;

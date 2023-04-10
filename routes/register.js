@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const router  = express.Router();
 const userQueries = require('../db/queries/users');
 
+// render register page
 router.get('/', (req, res) => {
   const username = req.session.username;
 
@@ -13,6 +14,7 @@ router.get('/', (req, res) => {
   res.render('register');
 });
 
+// register a new user
 router.post('/', (req, res) => {
   const username = req.body.username.toLowerCase();
   const password = bcrypt.hashSync(req.body.password, 10);

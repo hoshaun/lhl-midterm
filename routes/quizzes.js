@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
 
 // render all current user quizzes
 router.get('/my-quizzes', (req, res) => {
-  const username = 'user1'//req.session.username;
+  const username = req.session.username;
 
   if (!username) {
     return res.redirect('/login');
