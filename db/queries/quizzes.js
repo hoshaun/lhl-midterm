@@ -13,7 +13,11 @@ const getQuizzes = function() {
 // get specific quiz
 const getQuiz = function(url) {
   const params = [url];
-  const query = `SELECT * FROM quizzes WHERE url = $1;`;
+  const query = `
+    SELECT username, quizzes.* FROM quizzes 
+    JOIN users ON users.id = creator_id
+    WHERE url = $1;
+  `;
 
   return db.query(query, params)
     .then(data => {
