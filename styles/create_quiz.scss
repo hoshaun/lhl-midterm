@@ -9,6 +9,11 @@
   margin-top: 5%;
 }
 
+#tombstone form label,
+#tombstone form input {
+  line-height: 1.5;
+}
+
 #question {
   display: flex;
   background-color: white;

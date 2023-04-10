@@ -72,6 +72,10 @@ app.get('/create-quiz', (req, res) => {
   res.render('create_quiz');
 });
 
+app.get('/score', (req, res) => {
+  res.render('score');
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
