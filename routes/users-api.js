@@ -6,20 +6,10 @@
  */
 
 const express = require('express');
-const router  = express.Router();
-const app = express();
 const bcrypt = require('bcryptjs');
-const cookieSession = require('cookie-session');
+const router  = express.Router();
 const userQueries = require('../db/queries/users');
 const { isAlphanumeric } = require('../helpers/helpers');
-
-app.use(cookieSession({
-  name: 'session',
-  keys: ['LHL-midterm'],
-
-  // Cookie Options
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
-}));
 
 // get all users
 router.get('/', (req, res) => {
@@ -35,7 +25,7 @@ router.get('/', (req, res) => {
 });
 
 // get specific user with specified username
-router.get('/:username', (req, res) => {
+router.get('/profile/:username', (req, res) => {
   userQueries.getUserId(req.params.username)
     .then(id => {
       return userQueries.getUser(id)

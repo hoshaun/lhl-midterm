@@ -9,7 +9,7 @@ const generateRandomString = function(length) {
 };
 
 const isAlphanumeric = function(str) {
-  const regex = '/^[a-zA-Z0-9]+$/';
+  const regex = /^[a-zA-Z0-9]+$/;
   return regex.test(str);
 }
 
