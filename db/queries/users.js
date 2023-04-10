@@ -21,6 +21,17 @@ const getUser = function(username) {
     });
 };
 
+// get specific user ID
+const getUserId = function(username) {
+  const params = [username];
+  const query = `SELECT id FROM users WHERE username = $1;`;
+
+  return db.query(query, params)
+    .then(data => {
+      return data.rows[0].id;
+    });
+}
+
 // create a new user
 const createUser = function(username, password) {
   const params = [username, password];
@@ -90,6 +101,7 @@ const userExists = function(username) {
 module.exports = { 
   getUsers, 
   getUser, 
+  getUserId,
   createUser, 
   updateUsername,
   updatePassword,

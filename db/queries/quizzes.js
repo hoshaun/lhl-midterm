@@ -25,6 +25,17 @@ const getQuiz = function(url) {
     });
 };
 
+// get specific quiz ID
+const getQuizId = function(url) {
+  const params = [url];
+  const query = `SELECT id FROM quizzes WHERE url = $1;`;
+
+  return db.query(query, params)
+    .then(data => {
+      return data.rows[0].id;
+    });
+}
+
 // create a new quiz
 const createQuiz = function(creatorId, title, description, url, isPublic) {
   const params = [creatorId, title, description, url, isPublic];
@@ -64,6 +75,7 @@ const urlExists = function(url) {
 module.exports = { 
   getQuizzes, 
   getQuiz, 
+  getQuizId, 
   createQuiz, 
   deleteQuiz,
   urlExists
