@@ -3,7 +3,7 @@ const router  = express.Router();
 const quizQueries = require('../db/queries/quizzes');
 const { generateRandomString } = require('../helpers/helpers');
 
-// get all quizzes
+// get all public quizzes
 router.get('/', (req, res) => {
   quizQueries.getQuizzes()
     .then(quizzes => {
@@ -18,9 +18,12 @@ router.get('/', (req, res) => {
 
 // get specific quiz with specified URL
 router.get('/:url', (req, res) => {
-  quizQueries.getQuiz(req.params.url)
+  quizQueries.getQuizId(req.params.url)
+    .then(id => {
+      return quizQueries.getQuiz(id);
+    })
     .then(quiz => {
-      res.json({ quiz });
+      res.json(quiz);
     })
     .catch(err => {
       res

@@ -25,7 +25,7 @@ const createOption = function(quizId, number, description) {
   
   return db.query(query, params)
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     });
 };
 

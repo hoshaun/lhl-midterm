@@ -11,13 +11,13 @@ const getUsers = function() {
 };
 
 // get specific user
-const getUser = function(username) {
-  const params = [username];
-  const query = `SELECT * FROM users WHERE username = $1;`;
+const getUser = function(id) {
+  const params = [id];
+  const query = `SELECT * FROM users WHERE id = $1;`;
 
   return db.query(query, params)
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     });
 };
 
@@ -42,7 +42,7 @@ const createUser = function(username, password) {
   
   return db.query(query, params)
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     });
 };
 
@@ -57,7 +57,7 @@ const updateUsername = function(oldUsername, newUsername) {
   
   return db.query(query, params)
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     });
 };
 
@@ -72,7 +72,7 @@ const updatePassword = function(username, password) {
   
   return db.query(query, params)
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     });
 };
 
@@ -82,8 +82,8 @@ const deleteUser = function(username) {
   const query = `DELETE FROM users WHERE username = $1;`;
   
   return db.query(query, params)
-    .then(data => {
-      return data.rows;
+    .then(() => {
+      return;
     });
 };
 

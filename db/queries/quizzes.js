@@ -10,18 +10,29 @@ const getQuizzes = function() {
     });
 };
 
-// get specific quiz
-const getQuiz = function(url) {
-  const params = [url];
-  const query = `
-    SELECT username, quizzes.* FROM quizzes 
-    JOIN users ON users.id = creator_id
-    WHERE url = $1;
-  `;
+// get all current user quizzes
+const getUserQuizzes = function(userId) {
+  const params = [userId];
+  const query = `SELECT * FROM quizzes WHERE creator_id = $1;`;
 
   return db.query(query, params)
     .then(data => {
       return data.rows;
+    });
+};
+
+// get specific quiz
+const getQuiz = function(id) {
+  const params = [id];
+  const query = `
+    SELECT username, quizzes.* FROM quizzes 
+    JOIN users ON users.id = creator_id
+    WHERE quizzes.id = $1;
+  `;
+
+  return db.query(query, params)
+    .then(data => {
+      return data.rows[0];
     });
 };
 
@@ -46,7 +57,7 @@ const createQuiz = function(creatorId, title, description, url, isPublic) {
   
   return db.query(query, params)
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     });
 };
 
@@ -56,8 +67,8 @@ const deleteQuiz = function(url) {
   const query = `DELETE FROM quizzes WHERE url = $1;`;
   
   return db.query(query, params)
-    .then(data => {
-      return data.rows;
+    .then(() => {
+      return;
     });
 };
 
@@ -74,6 +85,7 @@ const urlExists = function(url) {
 
 module.exports = { 
   getQuizzes, 
+  getUserQuizzes,
   getQuiz, 
   getQuizId, 
   createQuiz, 

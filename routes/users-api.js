@@ -36,7 +36,10 @@ router.get('/', (req, res) => {
 
 // get specific user with specified username
 router.get('/:username', (req, res) => {
-  userQueries.getUser(req.params.username)
+  userQueries.getUserId(req.params.username)
+    .then(id => {
+      return userQueries.getUser(id)
+    })
     .then(user => {
       res.json({ user });
     })
@@ -60,9 +63,9 @@ router.get('/create', (req, res) => {
     .then(userExists => {
       if (!userExists) {
         userQueries.createUser(username, password)
-          .then(users => {
+          .then(user => {
             req.session.username = username;
-            return res.json({ users });
+            return res.json({ user });
           })
           .catch(err => {
             res

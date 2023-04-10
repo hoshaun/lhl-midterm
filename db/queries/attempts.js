@@ -4,12 +4,13 @@ const db = require('../connection');
 const getAttempts = function(username) {
   const params = [username];
   const query = `
-    SELECT * FROM attempts 
+    SELECT attempts.id, user_id, quiz_id, url, score, max_score, username
+    FROM attempts 
     JOIN users ON users.id = user_id
     WHERE username = $1;
   `;
 
-  return db.query(query)
+  return db.query(query, params)
     .then(data => {
       return data.rows;
     });
@@ -22,7 +23,7 @@ const getAttempt = function(url) {
 
   return db.query(query, params)
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     });
 };
 
@@ -36,7 +37,7 @@ const createAttempt = function(userId, quizId, url, score, maxScore) {
   
   return db.query(query, params)
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     });
 };
 
@@ -51,7 +52,7 @@ const updateAttempt = function(userId, quizId, score) {
   
   return db.query(query, params)
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     });
 };
 
