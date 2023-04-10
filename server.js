@@ -56,10 +56,17 @@ app.get('/my-attempts', (req, res) => {
   res.render('my_attempts');
 });
 
-// app.get('/testing', (req, res) => {
-//   res.render('my_quizzes');
-// });
+app.get('/login', (req, res) => {
+  res.render('login');
+});
 
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
+app.get('/quiz', (req, res) => {
+  res.render('quiz');
+});
 
 
 app.listen(PORT, () => {
