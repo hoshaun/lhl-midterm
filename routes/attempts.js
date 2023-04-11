@@ -58,12 +58,12 @@ router.get('/:url', (req, res) => {
   attemptQueries.getAttempt(url)
     .then(attempt => {
       templateVars['attempt'] = {
-        creator: attempt[0].score,
-        title: attempt[0].title,
-        description: attempt[0].description
+        creator: attempt.score,
+        title: attempt.title,
+        description: attempt.description
       };
 
-      return questionQueries.getQuestions(attempt[0].id);
+      return questionQueries.getQuestions(attempt.id);
     })
     .then(questions => {
       templateVars['questions'] = questions;
@@ -74,7 +74,7 @@ router.get('/:url', (req, res) => {
             templateVars['questions'][i]['options'] = options;
           })
           .then(() => {
-            res.render('attempt', templateVars);
+            res.render('score', templateVars);
           })
           .catch(err => {
             res
