@@ -12,7 +12,7 @@ $(document).ready(function() {
         document.location.href = '/login';
       })
       .catch(function() {
-        alert('Failed to logout.')
+        alert('Failed to logout.');
       });
   });
 });
