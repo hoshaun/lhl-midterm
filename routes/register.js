@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
         userQueries.createUser(username, password)
           .then(user => {
             req.session.username = username;
-            return res.json({ user });
+            return res.redirect('/');
           })
           .catch(err => {
             res

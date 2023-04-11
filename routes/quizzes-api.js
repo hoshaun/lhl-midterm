@@ -45,8 +45,8 @@ router.post('/create', (req, res) => {
   }
 
   quizQueries.createQuiz(creatorId, title, description, url, isPublic)
-    .then(quizzes => {
-      res.json({ quizzes });
+    .then(() => {
+      return res.redirect('/quizzes/my-quizzes');
     })
     .catch(err => {
       res
