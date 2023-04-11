@@ -48,34 +48,6 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/my-quizzes', (req, res) => {
-  res.render('my_quizzes');
-});
-
-app.get('/my-attempts', (req, res) => {
-  res.render('my_attempts');
-});
-
-app.get('/login', (req, res) => {
-  res.render('login');
-});
-
-app.get('/register', (req, res) => {
-  res.render('register');
-});
-
-app.get('/quiz', (req, res) => {
-  res.render('quiz');
-});
-
-app.get('/create-quiz', (req, res) => {
-  res.render('create_quiz');
-});
-
-app.get('/score', (req, res) => {
-  res.render('score');
-});
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
