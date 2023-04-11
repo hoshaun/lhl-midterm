@@ -1,11 +1,18 @@
 $(document).ready(function() {
-  const $composeButton = $('#compose-button');
-  
-  // scroll to top and focus text area on click
-  $composeButton.on('click', function() {
-    $('html, body').animate({
-      scrollTop: $(".container").offset().top - 50
-    }, 'slow');
-    $composeTextArea.focus();
+  const $homePageButton = $('#home-page');
+  const $logoutButton = $('#logout');
+
+  $homePageButton.on('click', function() {
+    document.location.href = '/';
+  });
+
+  $logoutButton.on('click', function() {
+    $.ajax('/logout', { method: 'POST' })
+      .then(function() {
+        document.location.href = '/login';
+      })
+      .catch(function() {
+        alert('Failed to logout.')
+      });
   });
 });
