@@ -3,7 +3,7 @@ const router  = express.Router();
 const userQueries = require('../db/queries/users');
 
 // render login page
-router.get('/', (req, res) => {
+router.get('/login', (req, res) => {
   const username = req.session.username;
 
   if (username) {
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 });
 
 // login as existing user
-router.post('/', (req, res) => {
+router.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   
@@ -35,6 +35,12 @@ router.post('/', (req, res) => {
         .status(500)
         .json({ error: err.message });
     });
-}); 
+});
+
+// POST logout
+router.post("/logout", (req, res) => {
+  req.session = null;
+  res.redirect('/login');
+});
 
 module.exports = router;

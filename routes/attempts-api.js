@@ -32,7 +32,7 @@ router.get('/:url', (req, res) => {
 });
 
 // create a new attempt
-router.get('/create', (req, res) => {
+router.post('/create', (req, res) => {
   const username = req.session.username;
   const quizUrl = req.body.quizUrl;
   const score = req.body.score;
@@ -72,7 +72,7 @@ router.get('/create', (req, res) => {
 });
 
 // update an existing attempt
-router.get('/update', (req, res) => {
+router.post('/update', (req, res) => {
   const username = req.session.username;
   const quizUrl = req.body.quizUrl;
   const score = req.body.score;

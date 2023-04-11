@@ -62,9 +62,9 @@ const createQuiz = function(creatorId, title, description, url, isPublic) {
 };
 
 // delete specific quiz
-const deleteQuiz = function(url) {
-  const params = [url];
-  const query = `DELETE FROM quizzes WHERE url = $1;`;
+const deleteQuiz = function(id) {
+  const params = [id];
+  const query = `DELETE FROM quizzes WHERE id = $1;`;
   
   return db.query(query, params)
     .then(() => {

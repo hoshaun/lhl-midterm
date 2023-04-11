@@ -54,8 +54,8 @@ app.use('/api/quizzes', quizApiRoutes);
 app.use('/quizzes', quizzesRoutes);
 app.use('/api/attempts', attemptApiRoutes);
 app.use('/attempts', attemptsRoutes);
-app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);
+app.use('/', loginRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page

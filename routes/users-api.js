@@ -41,7 +41,7 @@ router.get('/profile/:username', (req, res) => {
 });
 
 // create a new user
-router.get('/create', (req, res) => {
+router.post('/create', (req, res) => {
   const username = req.body.username.toLowerCase();
   const password = bcrypt.hashSync(req.body.password, 10);
 

@@ -33,7 +33,7 @@ router.get('/:url', (req, res) => {
 });
 
 // create a new quiz
-router.get('/create', (req, res) => {
+router.post('/create', (req, res) => {
   const creatorId = req.session.username;
   const title = req.body.title;
   const description = req.body.description;
@@ -56,12 +56,12 @@ router.get('/create', (req, res) => {
 });
 
 // delete a quiz with specified URL
-router.get('/delete', (req, res) => {
-  const url = req.body.url;
+router.delete('/delete/:url', (req, res) => {
+  const url = req.params.url;
 
-  quizQueries.deleteQuiz(url)
-    .then(() => {
-      return;
+  quizQueries.getQuizId(url)
+    .then(id => {
+      return quizQueries.deleteQuiz(id);
     })
     .catch(err => {
       res
