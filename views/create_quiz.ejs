@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/styles/layout.css" />
   <link rel="stylesheet" href="/styles/create_quiz.css" />
 
+  <script src="/vendor/jquery-3.0.0.js"></script>
 </head>
 
 <body>
@@ -30,26 +31,30 @@
   </section>
   <section id="question">
     <form>
-      <label for="question1">1. Question:</label>
-      <input name="question1"></input>
-      <br>
-      <label for="option1">Option 1:</label>
-      <input name="option"></input>
-      <br>
-      <label for="option2">Option 2:</label>
-      <input name="option"></input>
-      <br>
-      <label for="option3">Option 3:</label>
-      <input name="option"></input>
-      <br>
-      <label for="option4">Option 4:</label>
-      <input name="option"></input>
+      <div class="questions">
+        <label for="question1">
+          <div class="question-number">1</div>. Question:
+        </label>
+        <input name="question1"></input>
+        <br>
+        <label for="option1">Option 1:</label>
+        <input name="option"></input>
+        <br>
+        <label for="option2">Option 2:</label>
+        <input name="option"></input>
+        <br>
+        <label for="option3">Option 3:</label>
+        <input name="option"></input>
+        <br>
+        <label for="option4">Option 4:</label>
+        <input name="option"></input>
+      </div>
+      <div class="buttons">
+        <button id='add-question'>Add Question</button>
+        <br>
+        <button id='create-quiz' type="submit">Create Quiz</button>
+      </div>
     </form>
-  </section>
-  <section class="buttons">
-    <button type="submit">Add Question</button>
-    <button type="submit">Create Quiz</button>
-  </section>
 </body>
 
 </html>

@@ -34,6 +34,7 @@ router.get('/:url', (req, res) => {
 
 // create a new quiz
 router.post('/create', (req, res) => {
+  console.log(req.body);
   const creatorId = req.session.username;
   const title = req.body.title;
   const description = req.body.description;
