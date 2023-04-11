@@ -47,8 +47,7 @@ router.get('/my-quizzes', (req, res) => {
       templateVars['quizzes'] = quizzes;
     })
     .then(() => {
-      res.json(templateVars);
-      res.render('index', templateVars);
+      res.render('my_quizzes', templateVars);
     })
     .catch(err => {
       res
