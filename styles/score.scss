@@ -1,0 +1,21 @@
+#score-info{
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15%;
+  width: 60%;
+}
+
+#score-info h2:last-of-type {
+  border: 4px solid black;
+  padding: 10px;
+  margin-top: 0;
+}
+
+#score-info h3 {
+  border: 4px solid black;
+  padding: 10px;
+  margin-top: 0;
+}

@@ -1,0 +1,21 @@
+#description {
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  margin-top: 5%;
+  margin-bottom: 1%;
+  width: 40%;
+}
+
+#question {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 40%;
+  padding-bottom: 2%;
+}
+
+.button{
+  display: flex;
+  margin-top: 5%;
+}
