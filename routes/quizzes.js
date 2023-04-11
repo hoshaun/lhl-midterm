@@ -56,6 +56,17 @@ router.get('/my-quizzes', (req, res) => {
     });
 });
 
+// render create quiz page
+router.get('/create', (req, res) => {
+  const username = req.session.username;
+
+  if (!username) {
+    return res.redirect('/login');
+  }
+
+  const templateVars = {username: username};
+  res.render('create_quiz', templateVars);
+});
 
 // render a specific quiz
 router.get('/:url', (req, res) => {
