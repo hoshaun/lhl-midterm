@@ -5,6 +5,7 @@ require('dotenv').config();
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
+const cookieSession = require('cookie-session');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -25,19 +26,36 @@ app.use(
   })
 );
 app.use(express.static('public'));
+app.use(cookieSession({
+  name: 'session',
+  keys: ['LHL-midterm'],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
-const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
+const quizApiRoutes = require('./routes/quizzes-api');
+const quizzesRoutes = require('./routes/quizzes');
+const attemptApiRoutes = require('./routes/attempts-api');
+const attemptsRoutes = require('./routes/attempts');
+const loginRoutes = require('./routes/login');
+const registerRoutes = require('./routes/register');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
-app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
+app.use('/api/quizzes', quizApiRoutes);
+app.use('/quizzes', quizzesRoutes);
+app.use('/api/attempts', attemptApiRoutes);
+app.use('/attempts', attemptsRoutes);
+app.use('/register', registerRoutes);
+app.use('/', loginRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
