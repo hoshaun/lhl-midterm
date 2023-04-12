@@ -32,7 +32,8 @@ const createAttempt = function(userId, quizId, url, score, maxScore) {
   const params = [userId, quizId, url, score, maxScore];
   const query = `
     INSERT INTO attempts (user_id, quiz_id, url, score, max_score)
-    VALUES ($1, $2, $3, $4, $5);
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *;
   `;
   
   return db.query(query, params)

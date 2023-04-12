@@ -12,49 +12,65 @@
   <link rel="stylesheet" href="/styles/create_quiz.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/create-quiz.js"></script>
 </head>
 
 <body>
   <%- include('nav') %>
-  <section id="tombstone">
-    <form action="" method="GET">
-      <div class=>
+  <section id="quiz">
+    <form id="quiz-form">
+      <div>
         <label for="title">Title:</label>
-        <input id="title"></input>
+        <input id="title-input"></input>
       </div>
       <div>
         <label for="description">Description:</label>
-        <input id="description"></input>
+        <input id="description-input"></input>
       </div>
-      <input type="checkbox">Make Public</input>
+      <div>
+        <input id="make-private-input" type="checkbox">Make Private</input>
+      </div>
+      <div id="question-1">
+        <label for="question1">
+          <div class="question-number">
+            1. Question:
+          </div>
+          <input id="question-description-1"></input>
+        </label>
+        <br>
+        <label for="option1">
+          <input class="is-solution" type="radio" name="is-solution-1"></input>
+          Option 1:
+        </label>
+        <input class="option" name="option"></input>
+        <br>
+        <label for="option2">
+          <input class="is-solution" type="radio" name="is-solution-1"></input>
+          Option 2:
+        </label>
+        <input class="option" name="option"></input>
+        <br>
+        <label for="option3">
+          <input class="is-solution" type="radio" name="is-solution-1"></input>
+          Option 3:
+        </label>
+        <input class="option" name="option"></input>
+        <br>
+        <label for="option4">
+          <input class="is-solution" type="radio" name="is-solution-1"></input>
+          Option 4:
+        </label>
+        <input class="option" name="option"></input>
+      </div>
     </form>
   </section>
-  <section id="question">
-    <form>
-      <div class="questions">
-        <label for="question1">
-          <div class="question-number">1</div>. Question:
-        </label>
-        <input name="question1"></input>
-        <br>
-        <label for="option1">Option 1:</label>
-        <input name="option"></input>
-        <br>
-        <label for="option2">Option 2:</label>
-        <input name="option"></input>
-        <br>
-        <label for="option3">Option 3:</label>
-        <input name="option"></input>
-        <br>
-        <label for="option4">Option 4:</label>
-        <input name="option"></input>
-      </div>
-      <div class="buttons">
-        <button id='add-question'>Add Question</button>
-        <br>
-        <button id='create-quiz' type="submit">Create Quiz</button>
-      </div>
-    </form>
+  <section>
+    <div class="buttons">
+      <button id='add-question'>Add Question</button>
+      <br>
+      <button id='create-quiz'>Create Quiz</button>
+    </div>
+  </section>
 </body>
 
 </html>

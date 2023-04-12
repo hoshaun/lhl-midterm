@@ -20,7 +20,8 @@ const createQuestion = function(quizId, number, description) {
   const params = [quizId, number, description];
   const query = `
     INSERT INTO questions (quiz_id, number, description)
-    VALUES ($1, $2, $3);
+    VALUES ($1, $2, $3)
+    RETURNING *;
   `;
   
   return db.query(query, params)

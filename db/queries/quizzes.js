@@ -52,7 +52,8 @@ const createQuiz = function(creatorId, title, description, url, isPublic) {
   const params = [creatorId, title, description, url, isPublic];
   const query = `
     INSERT INTO quizzes (creator_id, title, description, url, is_public)
-    VALUES ($1, $2, $3, $4, $5);
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *;
   `;
   
   return db.query(query, params)

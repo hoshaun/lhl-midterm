@@ -37,6 +37,7 @@ router.post('/create', (req, res) => {
   const quizUrl = req.body.quizUrl;
   const score = req.body.score;
   const maxScore = req.body.maxScore;
+  let url = generateRandomString(10);
   
   userQueries.getUserId(username)
     .then(id => {
@@ -48,11 +49,6 @@ router.post('/create', (req, res) => {
     .then(data => {
       const userId = data.userId;
       const quizId = data.quizId;
-      let url = generateRandomString(10);
-    
-      while (attemptQueries.urlExists(url)) {
-        url = generateRandomString(10);
-      }
     
       attemptQueries.createAttempt(userId, quizId, url, score, maxScore)
         .then(attempts => {

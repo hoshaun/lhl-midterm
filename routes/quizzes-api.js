@@ -1,6 +1,9 @@
 const express = require('express');
 const router  = express.Router();
+const userQueries = require('../db/queries/users');
 const quizQueries = require('../db/queries/quizzes');
+const questionQueries = require('../db/queries/questions');
+const optionQueries = require('../db/queries/options');
 const { generateRandomString } = require('../helpers/helpers');
 
 // get all public quizzes
@@ -34,22 +37,44 @@ router.get('/:url', (req, res) => {
 
 // create a new quiz
 router.post('/create', (req, res) => {
-  console.log(req.body);
-  const creatorId = req.session.username;
+  // quiz properties
   const title = req.body.title;
   const description = req.body.description;
   const isPublic = req.body.isPublic;
   let url = generateRandomString(10);
+  const questions = req.body.questions;
 
-  while (quizQueries.urlExists(url)) {
-    url = generateRandomString(10);
-  }
-
-  quizQueries.createQuiz(creatorId, title, description, url, isPublic)
-    .then(() => {
-      return res.redirect('/quizzes/my-quizzes');
+  userQueries.getUserId(req.session.username)
+    .then(creatorId => {
+      return quizQueries.createQuiz(creatorId, title, description, url, isPublic);
+    })
+    .then(newQuiz => {
+      for (const question of questions) {
+        questionQueries.createQuestion(newQuiz.id, question.number, question.description)
+          .then(newQuestion => {
+            for (const option of question.options) {
+              optionQueries.createOption(newQuestion.id, option.number, option.description, option.isSolution)
+                .then(() => {
+                  res.redirect('/quizzes/my-quizzes');
+                })
+                .catch(err => {
+                  console.log(err);
+                  res
+                    .status(500)
+                    .json({ error: err.message });
+                });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            res
+              .status(500)
+              .json({ error: err.message });
+          });
+      };
     })
     .catch(err => {
+      console.log(err);
       res
         .status(500)
         .json({ error: err.message });
