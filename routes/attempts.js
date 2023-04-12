@@ -15,10 +15,10 @@ router.get('/', (req, res) => {
   const templateVars = {username: username};
   
   attemptQueries.getAttempts(username)
-    .then(attempts => {
+    .then(async attempts => {
       templateVars['attempts'] = attempts;
       for (const i in attempts) {
-        quizQueries.getQuiz(attempts[i].quiz_id)
+        await quizQueries.getQuiz(attempts[i].quiz_id)
           .then(quiz => {
             templateVars['attempts'][i]['quiz'] = quiz;
             return userQueries.getUser(quiz.creator_id);

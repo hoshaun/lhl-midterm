@@ -55,7 +55,7 @@ $(document).ready(function() {
     // send POST request to create quiz API
     $.ajax('/api/quizzes/create', { method: 'POST', data: quizData })
       .then(function() {
-        return;
+        return document.location.href = '/login';
       })
       .catch(function() {
         alert('Failed to create quiz.');

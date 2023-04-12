@@ -54,7 +54,7 @@ router.post('/create', (req, res) => {
           .then(newQuestion => {
             for (const option of question.options) {
               optionQueries.createOption(newQuestion.id, option.number, option.description, option.isSolution)
-                .then(() => {
+                .then(newOption => {
                   res.redirect('/quizzes/my-quizzes');
                 })
                 .catch(err => {

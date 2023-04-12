@@ -7,29 +7,29 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="/styles/layout.css" />
   <link rel="stylesheet" href="/styles/quiz.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
 </head>
 <body>
   <%- include('nav') %>
-  <section id="description">
-    <h2>Quiz Title</h2>
-    <h4>Quiz Description</h4>
-  </section>
-  <section id="question">
-    <h3>1. Question</h3>
-    <form>
-      <input type="radio" name="option">Option1</input>
-      <br>
-      <input type="radio" name="option">Option2</input>
-      <br>
-      <input type="radio" name="option">Option3</input>
-      <br>
-      <input type="radio" name="option">Option4</input>
+  <section id="quiz">
+    <form id="quiz-form">
+      <section id="description">
+        <h2><%= quiz.title %></h2>
+        <h4><%= quiz.description %></h4>
+      </section>
+      <% for (const question of questions) { %>
+        <h3><%= question.number %>. <%= question.description %></h3>
+        <% for (const option of question.options) { %>
+          <input class="answer" type="radio" name="answer-<%= question.number %>">
+            <%= option.description %>
+          </input>
+          <br>
+        <% } %>
+      <% } %>
+      <button class="button" type="submit">Submit</button>
     </form>
   </section>
-  <button class="button" type="submit">Submit</button>
 </body>
 </html>

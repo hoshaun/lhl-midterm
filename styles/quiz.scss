@@ -1,17 +1,29 @@
+body {
+  background-color: black;
+}
+
+#quiz {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-top: 200px;
+}
+
 #description {
   display: flex;
   background-color: white;
   flex-direction: column;
   margin-top: 5%;
   margin-bottom: 1%;
-  width: 40%;
 }
 
 #question {
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: 40%;
   padding-bottom: 2%;
 }
 
