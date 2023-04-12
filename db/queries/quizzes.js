@@ -47,6 +47,23 @@ const getQuizId = function(url) {
     });
 }
 
+// get the solutions for a quiz
+const getSolutions = function(id) {
+  const params = [id];
+  const query = `
+    SELECT questions.number AS question_number, options.number AS option_number FROM quizzes
+    JOIN questions ON quizzes.id = quiz_id
+    JOIN options ON questions.id = question_id
+    WHERE quizzes.id = $1 AND is_solution IS TRUE
+    ORDER BY questions.number;
+  `;
+
+  return db.query(query, params)
+    .then(data => {
+      return data.rows;
+    });
+};
+
 // create a new quiz
 const createQuiz = function(creatorId, title, description, url, isPublic) {
   const params = [creatorId, title, description, url, isPublic];
@@ -89,6 +106,7 @@ module.exports = {
   getUserQuizzes,
   getQuiz, 
   getQuizId, 
+  getSolutions,
   createQuiz, 
   deleteQuiz,
   urlExists

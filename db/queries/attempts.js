@@ -47,8 +47,9 @@ const updateAttempt = function(userId, quizId, score) {
   const params = [userId, quizId, score];
   const query = `
     UPDATE attempts
-    SET score = $3,
-    WHERE user_id = $1 AND quiz_id = $2;
+    SET score = $3
+    WHERE user_id = $1 AND quiz_id = $2
+    RETURNING *;
   `;
   
   return db.query(query, params)
@@ -57,14 +58,14 @@ const updateAttempt = function(userId, quizId, score) {
     });
 };
 
-// check if url already exists in DB
-const urlExists = function(url) {
-  const params = [url];
-  const query = `SELECT * FROM attempts WHERE url = $1;`;
+// find if an attempt for a quiz already exists for a user
+const findExistingAttempt = function(userId, quizId) {
+  const params = [userId, quizId];
+  const query = `SELECT * FROM attempts WHERE user_id = $1 AND quiz_id = $2;`;
 
   return db.query(query, params)
     .then(data => {
-      return data.rows.length > 0;
+      return data.rows[0];
     });
 }
 
@@ -73,5 +74,5 @@ module.exports = {
   getAttempt, 
   createAttempt, 
   updateAttempt,
-  urlExists
+  findExistingAttempt
 };

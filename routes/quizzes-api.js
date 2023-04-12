@@ -35,6 +35,22 @@ router.get('/:url', (req, res) => {
     });
 });
 
+// get solutions for quiz with specified URL
+router.get('/solutions/:url', (req, res) => {
+  quizQueries.getQuizId(req.params.url)
+    .then(id => {
+      return quizQueries.getSolutions(id);
+    })
+    .then(solutions => {
+      res.json(solutions);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
 // create a new quiz
 router.post('/create', (req, res) => {
   // quiz properties
@@ -58,7 +74,6 @@ router.post('/create', (req, res) => {
                   res.redirect('/quizzes/my-quizzes');
                 })
                 .catch(err => {
-                  console.log(err);
                   res
                     .status(500)
                     .json({ error: err.message });
@@ -66,7 +81,6 @@ router.post('/create', (req, res) => {
             }
           })
           .catch(err => {
-            console.log(err);
             res
               .status(500)
               .json({ error: err.message });
@@ -80,6 +94,8 @@ router.post('/create', (req, res) => {
         .json({ error: err.message });
     });
 });
+
+// get the solutions as an array for a specific quiz
 
 // delete a quiz with specified URL
 router.delete('/delete/:url', (req, res) => {

@@ -2,6 +2,8 @@ const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/users');
 const quizQueries = require('../db/queries/quizzes');
+const questionQueries = require('../db/queries/questions');
+const optionQueries = require('../db/queries/options');
 const attemptQueries = require('../db/queries/attempts');
 
 // render all user attempts
@@ -53,35 +55,31 @@ router.get('/:url', (req, res) => {
     return res.redirect('/login');
   }
 
-  const templateVars = {username: username};
+  const templateVars = {};
 
   attemptQueries.getAttempt(url)
     .then(attempt => {
       templateVars['attempt'] = {
-        creator: attempt.score,
-        title: attempt.title,
-        description: attempt.description
+        userId: attempt.user_id,
+        quizId: attempt.quiz_id,
+        attemptUrl: attempt.url,
+        score: attempt.score,
+        maxScore: attempt.max_score
       };
 
-      return questionQueries.getQuestions(attempt.id);
+      return userQueries.getUser(attempt.user_id);
     })
-    .then(questions => {
-      templateVars['questions'] = questions;
-
-      for (const i in questions) {
-        optionQueries.getOptions(questions[i].id)
-          .then(options => {
-            templateVars['questions'][i]['options'] = options;
-          })
-          .then(() => {
-            res.render('score', templateVars);
-          })
-          .catch(err => {
-            res
-              .status(500)
-              .json({ error: err.message });
-          });
-      }
+    .then(user => {
+      templateVars['attempt']['username'] = user.username;
+      return quizQueries.getQuiz(templateVars.attempt.quizId);
+    })
+    .then(quiz => {
+      templateVars['attempt']['quizTitle'] = quiz.title;
+      templateVars['attempt']['quizDescription'] = quiz.description;
+      templateVars['attempt']['quizUrl'] = quiz.url;
+    })
+    .then(() => {
+      res.render('score', templateVars);
     })
     .catch(err => {
       res

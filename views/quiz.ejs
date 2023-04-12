@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/styles/quiz.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/quiz.js"></script>
 </head>
 <body>
   <%- include('nav') %>
@@ -20,15 +21,19 @@
         <h4><%= quiz.description %></h4>
       </section>
       <% for (const question of questions) { %>
-        <h3><%= question.number %>. <%= question.description %></h3>
-        <% for (const option of question.options) { %>
-          <input class="answer" type="radio" name="answer-<%= question.number %>">
-            <%= option.description %>
-          </input>
-          <br>
+        <div class="question">
+          <h3 class="question-number"><%= question.number %>. <%= question.description %></h3>
+          <% for (const option of question.options) { %>
+            <label class="option">
+              <input class="answer" type="radio" name="answer-<%= question.number %>">
+                <%= option.number %>. <%= option.description %>
+              </input>
+            </label>
+            <br>
+        </div>
         <% } %>
       <% } %>
-      <button class="button" type="submit">Submit</button>
+      <button id="create-attempt">Submit</button>
     </form>
   </section>
 </body>
