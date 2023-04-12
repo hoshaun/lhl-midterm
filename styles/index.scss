@@ -9,13 +9,13 @@
   align-items: center;
 }
 
-body {
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  min-height: 100vh;
-}
+// body {
+//   background-color: black;
+//   display: flex;
+//   justify-content: center;
+//   flex-direction: column;
+//   min-height: 100vh;
+// }
 
 .buttons {
   display: flex;
@@ -28,10 +28,4 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-
-.write-tweet {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
 }
