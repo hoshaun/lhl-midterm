@@ -13,6 +13,7 @@ $(document).ready(function() {
     e.preventDefault();
 
     const $questionNumbers = $('.question-number');
+    const solutionsSpecified = [];
 
     // setup quiz submission data for POST request
     const quizData = {
@@ -42,6 +43,9 @@ $(document).ready(function() {
       // add the data to decide which option is the correct solution for the question
       $isSolution.each(function(isSolutionIndex, isSolution) {
         options[isSolutionIndex]['isSolution'] = isSolution.checked;
+        if (isSolution.checked) {
+          solutionsSpecified.push(true);
+        }
       });
 
       // push each question/options data to quizData
@@ -51,6 +55,10 @@ $(document).ready(function() {
         options: options
       });
     });
+
+    if (solutionsSpecified.length !== numOfQuestions) {
+      return alert('You must select a solution for each question.');
+    }
 
     // send POST request to create quiz API
     $.ajax('/api/quizzes/create', { method: 'POST', data: quizData })

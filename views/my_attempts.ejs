@@ -20,6 +20,20 @@
 
 <body>
   <%- include('nav') %>
+  <% if (attempts) { %>
+    <% for (const attempt of attempts) { %>
+      <% if (attempt) { %>
+        <div class="quizz">
+          <div>Title: <%= attempt.quiz.title %></div>
+          <div>Creator: <%= attempt.quiz.creator_name %></div>
+          <div>Description: <%= attempt.quiz.description %></div>
+          <div>Quiz URL: <a href='/quizzes/<%= attempt.quiz.url %>'><%= attempt.quiz.url %></a></div>
+          <div>My score: <%= attempt.score %> / <%= attempt.max_score %></div>
+          <div>Share your score: <a href="/attempts/<%= attempt.url %>"><%= hostname %>/attempts/<%= attempt.url %></a></div>
+        </div>
+      <% } %>
+    <% } %>
+  <% } %>
   <div class="quiz">
     <p>This is first quizz
       Score

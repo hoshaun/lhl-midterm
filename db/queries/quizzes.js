@@ -2,7 +2,11 @@ const db = require('../connection');
 
 // get all public quizzes
 const getQuizzes = function() {
-  const query = `SELECT * FROM quizzes WHERE is_public IS TRUE;`;
+  const query = `
+    SELECT * FROM quizzes
+    JOIN users ON users.id = creator_id
+    WHERE is_public IS TRUE;
+  `;
 
   return db.query(query)
     .then(data => {
@@ -13,7 +17,11 @@ const getQuizzes = function() {
 // get all current user quizzes
 const getUserQuizzes = function(userId) {
   const params = [userId];
-  const query = `SELECT * FROM quizzes WHERE creator_id = $1;`;
+  const query = `
+    SELECT * FROM quizzes
+    JOIN users ON users.id = creator_id
+    WHERE creator_id = $1;
+  `;
 
   return db.query(query, params)
     .then(data => {

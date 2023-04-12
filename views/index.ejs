@@ -20,35 +20,18 @@
 
 <body>
   <%- include('nav') %>
-  <div class="quizz">
-    <p>This is first quizz
-      Score
-      Quiz name
-      Description
-      url
-
-      THIS IS MY INDEX!!!!
-    </p>
-
-  </div>
-  <div class="quizz">
-    This is second quizz  rory
-  </div>
-  <div class="quizz">
-    This is third quizz  rory
-  </div>
-  <div class="quizz">
-    This is 4444 quizz  rory
-    fhdshd
-    dlsjkjflskjdlflksjkjfklsjlkjflksjklfjlksjdfkljsklfjlksjflkjsd
-    slkdjlksjklfjslkfjlkdsjflkjds
-    lskdjfklj
-    'skljflkjdslklkkljjlksajfkljkalsflkjklfjklajklfjklajkfjklajkljfkljaklsjfklj
-    sjkjakljfkjalkfjklsajfklsjalkfjklsajfkljaslkfjlksafjklsjflkaj
-    asklfjlksajlfkjaklsjklfjlksjflkjaslkfjslkajfkljsalkjlksflakjflkajs
-    askjfklajklfjalksjalkjfkljalkfjlkajfkljalkfjkls
-
-  </div>
+  <% if (quizzes) { %>
+    <% for (const quiz of quizzes) { %>
+      <% if (quiz) { %>
+        <div class="quizz">
+          <div>Title: <%= quiz.title %></div>
+          <div>Creator: <%= quiz.username %></div>
+          <div>Description: <%= quiz.description %></div>
+          <div>URL: <a href='/quizzes/<%= quiz.url %>'><%= quiz.url %></a></div>
+        </div>
+      <% } %>
+    <% } %>
+  <% } %>
 </body>
 
 </html>

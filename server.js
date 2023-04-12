@@ -70,7 +70,7 @@ app.get('/', (req, res) => {
     return res.redirect('/login');
   }
 
-  res.render('index');
+  res.redirect('/quizzes');
 });
 
 app.listen(PORT, () => {

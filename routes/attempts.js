@@ -5,6 +5,7 @@ const quizQueries = require('../db/queries/quizzes');
 const questionQueries = require('../db/queries/questions');
 const optionQueries = require('../db/queries/options');
 const attemptQueries = require('../db/queries/attempts');
+const { renderSync } = require('sass');
 
 // render all user attempts
 router.get('/', (req, res) => {
@@ -14,11 +15,15 @@ router.get('/', (req, res) => {
     return res.redirect('/login');
   }
 
-  const templateVars = {username: username};
+  const templateVars = {
+    username: username,
+    hostname: req.get('host')
+  };
   
   attemptQueries.getAttempts(username)
     .then(async attempts => {
       templateVars['attempts'] = attempts;
+
       for (const i in attempts) {
         await quizQueries.getQuiz(attempts[i].quiz_id)
           .then(quiz => {
@@ -28,15 +33,15 @@ router.get('/', (req, res) => {
           .then(creator => {
             templateVars['attempts'][i]['quiz']['creator_name'] = creator.username;
           })
-          .then(() => {
-            res.render('my_attempts', templateVars);
-          })
           .catch(err => {
             res
               .status(500)
               .json({ error: err.message });
           });
       }
+    })
+    .then(() => {
+      res.render('my_attempts', templateVars);
     })
     .catch(err => {
       res
