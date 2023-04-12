@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const router  = express.Router();
 const userQueries = require('../db/queries/users');
+const { isAlphanumeric } = require('../helpers/helpers')
 
 // render register page
 router.get('/', (req, res) => {
@@ -16,20 +17,21 @@ router.get('/', (req, res) => {
 
 // register a new user
 router.post('/', (req, res) => {
+  console.log('req.body', req.body)
   const username = req.body.username.toLowerCase();
-  const password = bcrypt.hashSync(req.body.password, 10);
-
-  if (!(username && password && isAlphanumeric(username))) {
-    return res.status(400).send('Status: Bad Request\n');
+  
+  if (!(username && isAlphanumeric(username))) {
+    return res.status(400).send('Username has to be alphanumeric');
   }
 
   userQueries.userExists(username)
-    .then(userExists => {
-      if (!userExists) {
+  .then(userExists => {
+    if (!userExists) {
+        const password = bcrypt.hashSync(req.body.password, 10);
         userQueries.createUser(username, password)
-          .then(user => {
+          .then(() => {
             req.session.username = username;
-            return res.redirect('/');
+            return res.status(200).send("user added")
           })
           .catch(err => {
             res
