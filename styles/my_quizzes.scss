@@ -17,3 +17,17 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+  // margin-left: auto;
+}
+
+.right-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

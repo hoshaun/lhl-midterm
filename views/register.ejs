@@ -13,22 +13,25 @@
   <link rel="stylesheet" href="/styles/register.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/register.js"></script>
 </head>
 
 <body>
   <h2 class="appname">Ronesh</h2>
   <section class="register">
-    <form action="" method="GET" class="register-form">
+    <form class="register-form">
       <div>
-        <label for="email">E-mail:</label>
-        <input id="email" type="email"></input>
+        <label for="username">Username:</label>
+        <input id="username"></input>
       </div>
       <div>
         <label for="password">Password:</label>
         <input id="password" type="password"></input>
       </div>
-      <button class="button" type="submit">Register</button>
+      <button class="button" type="submit" id="register-button">Register</button>
+      <p>Have an account? <button id="login-here-button">Login here</button></p>
     </form>
+    <div class="error-message"></div>
   </section>
 
 </body>
