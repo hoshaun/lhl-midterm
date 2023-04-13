@@ -1,6 +1,17 @@
+.username-field {
+  display: flex;
+  justify-content: space-between;
+}
+
+.password-field {
+  display: flex;
+  justify-content: space-between;
+}
+
 .login {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background-color: white;
   padding-top: 3%;
   padding-left: 3%;
