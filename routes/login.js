@@ -23,8 +23,8 @@ router.post('/login', (req, res) => {
     .then(user => {
       if (!user) {
         return res
-        .status(400)
-        .send("User does not exist please register");
+          .status(400)
+          .send("User does not exist please register");
       }
      
       if (!bcrypt.compareSync(password, user.password)) {

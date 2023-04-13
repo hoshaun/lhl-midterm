@@ -17,21 +17,26 @@ router.get('/', (req, res) => {
 
 // register a new user
 router.post('/', (req, res) => {
-  console.log('req.body', req.body)
   const username = req.body.username.toLowerCase();
+  const password = req.body.password;
   
   if (!(username && isAlphanumeric(username))) {
     return res.status(400).send('Username has to be alphanumeric');
   }
 
+  if (!password) {
+    return res.status(400).send('Password cannot be empty.');
+  }
+
   userQueries.userExists(username)
   .then(userExists => {
     if (!userExists) {
-        const password = bcrypt.hashSync(req.body.password, 10);
-        userQueries.createUser(username, password)
+        const encryptedPassword = bcrypt.hashSync(password, 10);
+        userQueries.createUser(username, encryptedPassword)
           .then(() => {
             req.session.username = username;
-            return res.status(200).send("user added")
+            res.status(200).send("user added");
+            res.redirect('/');
           })
           .catch(err => {
             res

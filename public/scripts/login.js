@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  console.log("test document");
   const $login = $('.login-form');
   const $register = $('#register-button');
 
@@ -9,12 +8,12 @@ $(document).ready(function() {
     const password = $("#password").val();
     const data = { username, password };
 
-    $.ajax('/login', { method: 'POST', data })
-      .then(function(response) {
-        document.location.href = '/';
+    $.ajax('/login', { method: 'POST', data: data })
+      .then(function() {
+        return document.location.href = '/';
       }).catch(function(error) {
         if (error.responseText) {
-          $(".error-message").text(error.responseText)
+          $(".error-message").text(error.responseText);
         }
       });
   });
@@ -22,7 +21,7 @@ $(document).ready(function() {
   $register.on('click', function() {
     $.ajax('/register', { method: 'GET' })
       .then(function() {
-        document.location.href = '/register';
+        return document.location.href = '/register';
       });
   });
 });

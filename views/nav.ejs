@@ -5,31 +5,14 @@
   <script type="text/javascript" src="/scripts/nav.js"></script>
 </head>
 <nav>
-  <!-- <span class="logo">Tweeter</span> -->
-
   <div class="buttons">
-
     <button id="home-page">Ronesh</button>
-
-    <!-- <a href="/quizzes/my-quizzes"> -->
-      <button id="my-quizzes">My Quizzes</button>
-    <!-- </a> -->
-
-    <!-- <a href="/my-attempts"> -->
-      <button id="my-attempts">My Attempts</button>
-    <!-- </a> -->
-
-    <!-- <a href="/my-attempts"> -->
-      <button id="create-a-quiz">Create a Quiz</button>
-    <!-- </a> -->
-
-
+    <button id="my-quizzes">My Quizzes</button>
+    <button id="my-attempts">My Attempts</button>
+    <button id="create-a-quiz">Create a Quiz</button>
   </div>
-    <div class="right-buttons">
-      <!-- <button>Register</button>
-      <button>Login</button> -->
-
-      <span class="placeholder-text">You are logged in as User 1</span>
-      <button id="logout">Logout</button>
-    </div>
+  <div class="right-buttons">
+    <span class="placeholder-text">You are logged in as <%= username %></span>
+    <button id="logout">Logout</button>
+  </div>
 </nav>

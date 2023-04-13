@@ -8,9 +8,9 @@ $(document).ready(function() {
     const password = $("#password").val();
     const data = { username, password };
   
-    $.ajax('/register', { method: 'POST', data })
+    $.ajax('/register', { method: 'POST', data: data })
       .then(function() {
-        document.location.href = '/';
+        return document.location.href = '/';
       }).catch((error) => {
         $(".error-message").text(error.responseText)
       }) 
@@ -19,7 +19,7 @@ $(document).ready(function() {
   $loginHereButton.on('click', function() {
     $.ajax('/login', { method: 'GET' })
       .then(function() {
-        document.location.href = '/login';
+        return document.location.href = '/login';
       })
   });
 });
