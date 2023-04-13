@@ -63,7 +63,6 @@ app.use('/', loginRoutes);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
-  req.session.username = 'user1';
   const username = req.session.username;
 
   if (!username) {

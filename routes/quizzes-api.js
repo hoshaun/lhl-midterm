@@ -53,7 +53,6 @@ router.get('/solutions/:url', (req, res) => {
 
 // create a new quiz
 router.post('/create', (req, res) => {
-  // quiz properties
   const title = req.body.title;
   const description = req.body.description;
   const isPublic = req.body.isPublic;

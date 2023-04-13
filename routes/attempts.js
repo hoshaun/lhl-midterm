@@ -60,7 +60,7 @@ router.get('/:url', (req, res) => {
     return res.redirect('/login');
   }
 
-  const templateVars = {};
+  const templateVars = {username: username};
 
   attemptQueries.getAttempt(url)
     .then(attempt => {

@@ -1,8 +1,8 @@
 $(document).ready(function() {
   const $loginHereButton = $('#login-here-button');
-  const $register = $('.register-form');
+  const $register = $('#register-button');
   
-  $register.on('submit', function(event) {
+  $register.on('click', function(event) {
     event.preventDefault();
     const username = $("#username").val();
     const password = $("#password").val();
@@ -12,7 +12,7 @@ $(document).ready(function() {
       .then(function() {
         return document.location.href = '/';
       }).catch((error) => {
-        $(".error-message").text(error.responseText)
+        alert(error.responseText);
       }) 
   });
 

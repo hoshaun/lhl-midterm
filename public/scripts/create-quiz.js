@@ -1,6 +1,6 @@
 $(document).ready(function() {
   const $addQuestionButton = $('#add-question');
-  const $submitButton = $('#create-quiz');
+  const $submitButton = $('#submit-quiz');
   const $quizForm = $('#quiz-form');
   const $titleInput = $('#title-input');
   const $descriptionInput = $('#description-input');
@@ -63,7 +63,7 @@ $(document).ready(function() {
     // send POST request to create quiz API
     $.ajax('/api/quizzes/create', { method: 'POST', data: quizData })
       .then(function() {
-        return document.location.href = '/login';
+        return document.location.href = '/quizzes/my-quizzes';
       })
       .catch(function() {
         alert('Failed to create quiz.');
