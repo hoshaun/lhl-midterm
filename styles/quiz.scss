@@ -2,19 +2,27 @@ body {
   background-color: black;
 }
 
+#quiz-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 #quiz {
+  height: 100%;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: #d4d4d4;
   margin-left: 20%;
   margin-right: 20%;
-  padding-top: 200px;
+  padding-top: 5%;
+  padding-bottom: 5%;
 }
 
 #description {
   display: flex;
-  background-color: white;
   flex-direction: column;
   margin-top: 5%;
   margin-bottom: 1%;
@@ -23,11 +31,20 @@ body {
 #question {
   display: flex;
   flex-direction: column;
-  background-color: white;
   padding-bottom: 2%;
 }
 
-.button{
+.button {
   display: flex;
   margin-top: 5%;
+}
+
+#create-attempt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  margin-top: 2em;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

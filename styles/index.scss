@@ -1,34 +1,19 @@
-.quizz {
-  height: 200px;
-  width: 80%;
- border: 1px solid #cccccc;
- padding: 10px;
- font-size: 18px;
- margin: 50px;
- background-color: #d4d4d4;
- display: flex;
- justify-content: center;
- flex-direction: column;
+body {
+  padding-top: 5%;
 }
 
-// .quizz {
-//   border: 1px solid #cccccc;
-//   padding: 10px;
-//   font-size: 18px;
-//   background-color: #d4d4d4;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   flex-direction: column;
-// }
-
-// body {
-//   background-color: black;
-//   display: flex;
-//   justify-content: center;
-//   flex-direction: column;
-//   min-height: 100vh;
-// }
+.quizz {
+  height: 100%;
+  width: 80%;
+  border: 1px solid #cccccc;
+  padding: 10px;
+  font-size: 18px;
+  margin: 0.5em;
+  background-color: #d4d4d4;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 
 .buttons {
   display: flex;

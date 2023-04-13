@@ -43,4 +43,23 @@
   padding-bottom: 10px;
 }
 
+.title-form {
+  display: flex;
+  justify-content: space-between;
+  margin: 2%;
+}
 
+.description-form {
+  display: flex;
+  justify-content: space-between;
+  margin: 2%;
+}
+
+.question-number {
+  display: flex;
+  margin: 2%;
+}
+
+.option {
+  margin-top: 2%;
+}
