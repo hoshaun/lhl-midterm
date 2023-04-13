@@ -16,7 +16,7 @@ router.get('/login', (req, res) => {
 
 // login as existing user
 router.post('/login', (req, res) => {
-  const username = req.body.username;
+  const username = req.body.username.toLowerCase();
   const password = req.body.password;
 
   userQueries.getUserByUsername(username)
