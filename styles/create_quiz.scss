@@ -28,11 +28,25 @@
   line-height: 1.5;
 }
 
+// .buttons {
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// .buttons button:first-child {
+//   margin-bottom: 0.5em;
+// }
+
+
 .buttons {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center
+  // margin-left: auto;
 }
 
-.buttons button:first-child {
-  margin-bottom: 0.5em;
+.right-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
