@@ -1,5 +1,6 @@
 .login {
   display: flex;
+  flex-direction: column;
   background-color: white;
   padding-top: 3%;
   padding-left: 3%;
@@ -10,7 +11,6 @@
 .buttons {
   display: flex;
   justify-content: space-evenly;
-  flex-direction: column;
 }
 
 .appname {
