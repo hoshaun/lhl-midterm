@@ -8,6 +8,8 @@ $(document).ready(function() {
     document.location.href = '/';
   });
 
+  // MY QUIZZES BUTTON
+
   const $myquizzesButton = $('#my-quizzes');
   // const $logoutButton = $('#logout');
   $myquizzesButton.on('click', function() {
