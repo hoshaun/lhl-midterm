@@ -14,11 +14,13 @@
 </head>
 
 <body>
+  <%- include('nav') %>
   <section id="score-info">
-    <h1>Attempted by: Email</h1>
-    <h2>Quiz Title</h2>
-    <h3>Quiz Description</h3>
-    <h2>0/10</h2>
+    <h1>Attempted by: <%= attempt.username %></h1>
+    <h2>Quiz Title: <%= attempt.quizTitle %></h2>
+    <h3>Quiz Description: <%= attempt.quizDescription %></h3>
+    <h4>Quiz URL: <a href='/quizzes/<%= attempt.quizUrl %>'><%= attempt.quizUrl %></a></h4>
+    <h2><%= attempt.score %>/<%= attempt.maxScore %></h2>
   </section>
 </body>
 </html>

@@ -1,23 +1,28 @@
-.quizz {
+body {
+  padding-top: 5%;
+}
+
+.quiz {
+  height: 100%;
+  width: 80%;
   border: 1px solid #cccccc;
   padding: 10px;
   font-size: 18px;
-  margin: 50px;
+  margin: 0.5em;
   background-color: #d4d4d4;
   display: flex;
-  // justify-content: center;
-  margin-left: 20%;
-  margin-right: 20%;
-  // align-items: center;
-
+  justify-content: center;
+  flex-direction: column;
 }
 
-body {
-  background-color: black;
+.buttons {
   display: flex;
-  // justify-content: center;
-  // align-items: center;
-  flex-direction: column;
-  // align-items: center;
-  min-height: 100vh;
+  justify-content: space-between;
+  align-items: center
+}
+
+.right-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }

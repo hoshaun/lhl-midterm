@@ -2,7 +2,10 @@ const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/users');
 const quizQueries = require('../db/queries/quizzes');
+const questionQueries = require('../db/queries/questions');
+const optionQueries = require('../db/queries/options');
 const attemptQueries = require('../db/queries/attempts');
+const { renderSync } = require('sass');
 
 // render all user attempts
 router.get('/', (req, res) => {
@@ -12,13 +15,17 @@ router.get('/', (req, res) => {
     return res.redirect('/login');
   }
 
-  const templateVars = {username: username};
+  const templateVars = {
+    username: username,
+    hostname: req.get('host')
+  };
   
   attemptQueries.getAttempts(username)
-    .then(attempts => {
+    .then(async attempts => {
       templateVars['attempts'] = attempts;
+
       for (const i in attempts) {
-        quizQueries.getQuiz(attempts[i].quiz_id)
+        await quizQueries.getQuiz(attempts[i].quiz_id)
           .then(quiz => {
             templateVars['attempts'][i]['quiz'] = quiz;
             return userQueries.getUser(quiz.creator_id);
@@ -26,15 +33,15 @@ router.get('/', (req, res) => {
           .then(creator => {
             templateVars['attempts'][i]['quiz']['creator_name'] = creator.username;
           })
-          .then(() => {
-            res.render('my_attempts', templateVars);
-          })
           .catch(err => {
             res
               .status(500)
               .json({ error: err.message });
           });
       }
+    })
+    .then(() => {
+      res.render('my_attempts', templateVars);
     })
     .catch(err => {
       res
@@ -58,30 +65,26 @@ router.get('/:url', (req, res) => {
   attemptQueries.getAttempt(url)
     .then(attempt => {
       templateVars['attempt'] = {
-        creator: attempt.score,
-        title: attempt.title,
-        description: attempt.description
+        userId: attempt.user_id,
+        quizId: attempt.quiz_id,
+        attemptUrl: attempt.url,
+        score: attempt.score,
+        maxScore: attempt.max_score
       };
 
-      return questionQueries.getQuestions(attempt.id);
+      return userQueries.getUser(attempt.user_id);
     })
-    .then(questions => {
-      templateVars['questions'] = questions;
-
-      for (const i in questions) {
-        optionQueries.getOptions(questions[i].id)
-          .then(options => {
-            templateVars['questions'][i]['options'] = options;
-          })
-          .then(() => {
-            res.render('score', templateVars);
-          })
-          .catch(err => {
-            res
-              .status(500)
-              .json({ error: err.message });
-          });
-      }
+    .then(user => {
+      templateVars['attempt']['username'] = user.username;
+      return quizQueries.getQuiz(templateVars.attempt.quizId);
+    })
+    .then(quiz => {
+      templateVars['attempt']['quizTitle'] = quiz.title;
+      templateVars['attempt']['quizDescription'] = quiz.description;
+      templateVars['attempt']['quizUrl'] = quiz.url;
+    })
+    .then(() => {
+      res.render('score', templateVars);
     })
     .catch(err => {
       res

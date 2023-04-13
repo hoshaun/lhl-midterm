@@ -87,21 +87,19 @@ router.get('/:url', (req, res) => {
       templateVars['quiz'] = {
         creator: quiz.username,
         title: quiz.title,
-        description: quiz.description
+        description: quiz.description,
+        url: quiz.url
       };
 
       return questionQueries.getQuestions(quiz.id);
     })
-    .then(questions => {
+    .then(async questions => {
       templateVars['questions'] = questions;
 
       for (const i in questions) {
-        optionQueries.getOptions(questions[i].id)
+        await optionQueries.getOptions(questions[i].id)
           .then(options => {
             templateVars['questions'][i]['options'] = options;
-          })
-          .then(() => {
-            res.render('quiz', templateVars);
           })
           .catch(err => {
             res
@@ -109,6 +107,9 @@ router.get('/:url', (req, res) => {
               .json({ error: err.message });
           });
       }
+    })
+    .then(() => {
+      res.render('quiz', templateVars);
     })
     .catch(err => {
       res

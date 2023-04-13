@@ -16,11 +16,12 @@ const getOptions = function(id) {
 };
 
 // create a new option
-const createOption = function(quizId, number, description) {
-  const params = [quizId, number, description];
+const createOption = function(questionId, number, description, isSolution) {
+  const params = [questionId, number, description, isSolution];
   const query = `
-    INSERT INTO options (quiz_id, number, description)
-    VALUES ($1, $2, $3);
+    INSERT INTO options (question_id, number, description, is_solution)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *;
   `;
   
   return db.query(query, params)

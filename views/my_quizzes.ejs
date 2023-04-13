@@ -19,37 +19,19 @@
 </head>
 
 <body>
-  <div class="quizz">
-    This is first quizz
-
-    <p> Quiz name
-      Quiz creator
-      Description
-      url
-      Public private status
-
-
-      this is my QUIZZES
-    </p>
-  </div>
-  <div class="quizz">
-    This is second quizz  rory
-  </div>
-  <div class="quizz">
-    This is third quizz  rory
-  </div>
-  <div class="quizz">
-    This is 4444 quizz  rory
-    fhdshd
-    dlsjkjflskjdlflksjkjfklsjlkjflksjklfjlksjdfkljsklfjlksjflkjsd
-    slkdjlksjklfjslkfjlkdsjflkjds
-    lskdjfklj
-    'skljflkjdslklkkljjlksajfkljkalsflkjklfjklajklfjklajkfjklajkljfkljaklsjfklj
-    sjkjakljfkjalkfjklsajfklsjalkfjklsajfkljaslkfjlksafjklsjflkaj
-    asklfjlksajlfkjaklsjklfjlksjflkjaslkfjslkajfkljsalkjlksflakjflkajs
-    askjfklajklfjalksjalkjfkljalkfjlkajfkljalkfjkls
-
-  </div>
+  <%- include('nav') %>
+  <% if (quizzes) { %>
+    <% for (const quiz of quizzes) { %>
+      <% if (quiz) { %>
+        <div class="quizz">
+          <div>Title: <%= quiz.title %></div>
+          <div>Description: <%= quiz.description %></div>
+          <div>URL: <a href='/quizzes/<%= quiz.url %>'><%= quiz.url %></a></div>
+          <div>Is Public: <%= quiz.is_public %></div>
+        </div>
+      <% } %>
+    <% } %>
+  <% } %>
 </body>
 
 </html>

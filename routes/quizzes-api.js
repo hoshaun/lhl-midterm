@@ -1,6 +1,9 @@
 const express = require('express');
 const router  = express.Router();
+const userQueries = require('../db/queries/users');
 const quizQueries = require('../db/queries/quizzes');
+const questionQueries = require('../db/queries/questions');
+const optionQueries = require('../db/queries/options');
 const { generateRandomString } = require('../helpers/helpers');
 
 // get all public quizzes
@@ -32,21 +35,14 @@ router.get('/:url', (req, res) => {
     });
 });
 
-// create a new quiz
-router.post('/create', (req, res) => {
-  const creatorId = req.session.username;
-  const title = req.body.title;
-  const description = req.body.description;
-  const isPublic = req.body.isPublic;
-  let url = generateRandomString(10);
-
-  while (quizQueries.urlExists(url)) {
-    url = generateRandomString(10);
-  }
-
-  quizQueries.createQuiz(creatorId, title, description, url, isPublic)
-    .then(() => {
-      return res.redirect('/quizzes/my-quizzes');
+// get solutions for quiz with specified URL
+router.get('/solutions/:url', (req, res) => {
+  quizQueries.getQuizId(req.params.url)
+    .then(id => {
+      return quizQueries.getSolutions(id);
+    })
+    .then(solutions => {
+      res.json(solutions);
     })
     .catch(err => {
       res
@@ -54,6 +50,51 @@ router.post('/create', (req, res) => {
         .json({ error: err.message });
     });
 });
+
+// create a new quiz
+router.post('/create', (req, res) => {
+  const title = req.body.title;
+  const description = req.body.description;
+  const isPublic = req.body.isPublic;
+  let url = generateRandomString(10);
+  const questions = req.body.questions;
+
+  userQueries.getUserId(req.session.username)
+    .then(creatorId => {
+      return quizQueries.createQuiz(creatorId, title, description, url, isPublic);
+    })
+    .then(newQuiz => {
+      for (const question of questions) {
+        questionQueries.createQuestion(newQuiz.id, question.number, question.description)
+          .then(newQuestion => {
+            for (const option of question.options) {
+              optionQueries.createOption(newQuestion.id, option.number, option.description, option.isSolution)
+                .then(newOption => {
+                  res.redirect('/quizzes/my-quizzes');
+                })
+                .catch(err => {
+                  res
+                    .status(500)
+                    .json({ error: err.message });
+                });
+            }
+          })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ error: err.message });
+          });
+      };
+    })
+    .catch(err => {
+      console.log(err);
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
+// get the solutions as an array for a specific quiz
 
 // delete a quiz with specified URL
 router.delete('/delete/:url', (req, res) => {

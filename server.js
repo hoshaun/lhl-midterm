@@ -63,14 +63,13 @@ app.use('/', loginRoutes);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
-  req.session.username = 'user1';
   const username = req.session.username;
 
   if (!username) {
     return res.redirect('/login');
   }
 
-  res.render('index');
+  res.redirect('/quizzes');
 });
 
 app.listen(PORT, () => {

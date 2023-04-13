@@ -12,42 +12,28 @@
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
-  <link rel="stylesheet" href="/styles/my_quizzes.css" />
+  <link rel="stylesheet" href="/styles/my_attempts.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
 </head>
 
 <body>
-  <div class="quizz">
-    <p>This is first quizz
-      Score
-      Quiz name
-      Description
-      url
-
-      THIS IS MY ATTEMPTS!!!!
-    </p>
-
-  </div>
-  <div class="quizz">
-    This is second quizz  rory
-  </div>
-  <div class="quizz">
-    This is third quizz  rory
-  </div>
-  <div class="quizz">
-    This is 4444 quizz  rory
-    fhdshd
-    dlsjkjflskjdlflksjkjfklsjlkjflksjklfjlksjdfkljsklfjlksjflkjsd
-    slkdjlksjklfjslkfjlkdsjflkjds
-    lskdjfklj
-    'skljflkjdslklkkljjlksajfkljkalsflkjklfjklajklfjklajkfjklajkljfkljaklsjfklj
-    sjkjakljfkjalkfjklsajfklsjalkfjklsajfkljaslkfjlksafjklsjflkaj
-    asklfjlksajlfkjaklsjklfjlksjflkjaslkfjslkajfkljsalkjlksflakjflkajs
-    askjfklajklfjalksjalkjfkljalkfjlkajfkljalkfjkls
-
-  </div>
+  <%- include('nav') %>
+  <% if (attempts) { %>
+    <% for (const attempt of attempts) { %>
+      <% if (attempt) { %>
+        <div class="quiz">
+          <div>Title: <%= attempt.quiz.title %></div>
+          <div>Creator: <%= attempt.quiz.creator_name %></div>
+          <div>Description: <%= attempt.quiz.description %></div>
+          <div>Quiz URL: <a href='/quizzes/<%= attempt.quiz.url %>'><%= attempt.quiz.url %></a></div>
+          <div>My score: <%= attempt.score %> / <%= attempt.max_score %></div>
+          <div>Share your score: <a href="/attempts/<%= attempt.url %>"><%= hostname %>/attempts/<%= attempt.url %></a></div>
+        </div>
+      <% } %>
+    <% } %>
+  <% } %>
 </body>
 
 </html>

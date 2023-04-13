@@ -4,6 +4,7 @@ const userQueries = require('../db/queries/users');
 const quizQueries = require('../db/queries/quizzes');
 const attemptQueries = require('../db/queries/attempts');
 const { generateRandomString } = require('../helpers/helpers');
+const e = require('express');
 
 // get all attempts
 router.get('/', (req, res) => {
@@ -37,32 +38,43 @@ router.post('/create', (req, res) => {
   const quizUrl = req.body.quizUrl;
   const score = req.body.score;
   const maxScore = req.body.maxScore;
+  let url = generateRandomString(10);
+  let userId, quizId;
   
+  // create new attempt
   userQueries.getUserId(username)
     .then(id => {
-      return { 
-        userId: id, 
-        quizId: quizQueries.getQuizId(quizUrl) 
-      };
+      userId = id;
+      return quizQueries.getQuizId(quizUrl);
     })
-    .then(data => {
-      const userId = data.userId;
-      const quizId = data.quizId;
-      let url = generateRandomString(10);
-    
-      while (attemptQueries.urlExists(url)) {
-        url = generateRandomString(10);
+    .then(id => {
+      quizId = id;
+      return attemptQueries.findExistingAttempt(userId, quizId);
+    })
+    .then(attempt => {
+      // if a previous attempt was made, update existing attempt
+      if (attempt) {
+        attemptQueries.updateAttempt(userId, quizId, score)
+          .then(attempt => {
+            res.json(attempt);
+          })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ error: err.message });
+          });
+      // no previous attempt made, create a new record
+      } else {
+        attemptQueries.createAttempt(userId, quizId, url, score, maxScore)
+          .then(attempt => {
+            res.json(attempt);
+          })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ error: err.message });
+          });
       }
-    
-      attemptQueries.createAttempt(userId, quizId, url, score, maxScore)
-        .then(attempts => {
-          res.json({ attempts });
-        })
-        .catch(err => {
-          res
-            .status(500)
-            .json({ error: err.message });
-        });
     })
     .catch(err => {
       res
@@ -76,21 +88,18 @@ router.post('/update', (req, res) => {
   const username = req.session.username;
   const quizUrl = req.body.quizUrl;
   const score = req.body.score;
+  let userId, quizId;
   
   userQueries.getUserId(username)
     .then(id => {
-      return { 
-        userId: id, 
-        quizId: quizQueries.getQuizId(quizUrl) 
-      };
+      userId = id;
+      return quizQueries.getQuizId(quizUrl);
     })
-    .then(data => {
-      const userId = data.userId;
-      const quizId = data.quizId;
-    
+    .then(id => {
+      quizId = id;
       attemptQueries.updateAttempt(userId, quizId, score)
-        .then(attempts => {
-          res.json({ attempts });
+        .then(attempt => {
+          res.json(attempt);
         })
         .catch(err => {
           res

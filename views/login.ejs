@@ -13,26 +13,28 @@
   <link rel="stylesheet" href="/styles/login.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/login.js"></script>
 </head>
 
 <body>
   <h2 class="appname">Ronesh</h2>
   <section class="login">
-    <form action="" method="GET" class="login-form">
-      <div class=>
-        <label for="email">E-mail:</label>
-        <input id="email" type="email"></input>
+    <h2>Login</h2>
+    <form class="login-form">
+      <div class="username-field">
+        <label for="username">Username: </label>
+        <input id="username"></input>
       </div>
-      <div>
-        <label for="password">Password:</label>
+      <div class="password-field">
+        <label for="password">Password: </label>
         <input id="password" type="password"></input>
       </div>
-      <div class="buttons">
-        <button type="submit">Login</button>
-        <button type="submit">Register</button>
-      </div>
-
     </form>
+    <div class="buttons">
+      <button id="login-button">Login</button>
+      <button id="register-button">Register</button>
+    </div>
+    <div class="error-message"></div>
   </section>
 </body>
 
