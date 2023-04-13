@@ -41,8 +41,9 @@ router.post('/login', (req, res) => {
     });
 });
 
+// REMEMBER TO CHANGE THIS BACK TO POST REQUEST
 // POST logout
-router.post("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   req.session = null;
   res.redirect('/login');
 });
