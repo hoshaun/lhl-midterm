@@ -23,7 +23,20 @@
 }
 
 .register-form {
+  display: flex;
   justify-content: center;
+  flex-direction: column;
+}
+
+#register-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 40%;
+  margin-right: 40%;
+  width: fit-content;
 }
 
 .appname {
